@@ -1,0 +1,17 @@
+{
+    "name": "ci-cd-app",
+    "version": "1.0.0",
+    "main": "index.js",
+    "dependencies": {
+      "express": "^4.17.1",
+      "mongoose": "^5.9.20",
+      "supertest": "^4.0.2"
+    },
+    "scripts": {
+      "start": "node backend/server.js",
+      "test": "jest"
+    },
+    "author": "",
+    "license": "ISC"
+  }
+  

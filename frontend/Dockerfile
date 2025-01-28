@@ -1,25 +1,25 @@
 # Use the official Node.js image as a base
-FROM node:14
+FROM node:14-alpine as build
 
 # Set the working directory
 WORKDIR /app
 
 # Copy package.json and install dependencies
-COPY frontend/package.json ./frontend/
-WORKDIR /app/frontend
+COPY frontend/package*.json ./
 RUN npm install
 
-# Copy all other files
-COPY frontend/ /app/frontend/
-
-# Build the React app
+# Copy the rest of the frontend files and build the app
+COPY frontend/ ./
 RUN npm run build
 
-# Install a static file server to serve the production build
-RUN npm install -g serve
+# Stage 2: Use a lightweight web server (serve) to serve the React app
+FROM nginx:alpine
 
-# Expose the app's port
-EXPOSE 3000
+# Copy the build files from the build stage
+COPY --from=build /app/build /usr/share/nginx/html
 
-# Start the React app using serve to serve the build
-CMD ["serve", "-s", "build", "-l", "3000"]
+# Expose port 80 for serving the app
+EXPOSE 80
+
+# Start nginx to serve the built files
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,8 +1,13 @@
-// controllers/deploymentController.js
-const deploymentModel = require('../models/deploymentModel');  // Import your model
+const Deployment = require('../models/deploymentModel');
 
-exports.deployApp = (req, res) => {
-    // Call the startDeployment function from the model
-    deploymentModel.startDeployment();  // Assuming deployment logic is in this function
-    res.send('App deployed successfully!');
+// Example controller function
+const getDeployments = async (req, res) => {
+    try {
+        const deployments = await Deployment.find();
+        res.json(deployments);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
+
+module.exports = { getDeployments };

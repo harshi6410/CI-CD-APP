@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: ci-cd-app
+    component: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ci-cd-app
+      component: backend
+  template:
+    metadata:
+      labels:
+        app: ci-cd-app
+        component: backend
+    spec:
+      containers:
+        - name: backend
+          image: us.icr.io/ci-cd-app/ci-cd-app-backend:latest  # Your image name
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+      imagePullSecrets:
+        - name: ibm-cloud-registry-secret  # Reference the created secret here

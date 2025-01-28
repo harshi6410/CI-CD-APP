@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CI/CD Application
 
 This project demonstrates a CI/CD pipeline setup for both frontend and backend.
@@ -14,3 +15,6 @@ Clone the repository and run the following commands:
 
 - Backend deployed using Express.js
 - Frontend built using React
+=======
+# ci-cd-app
+>>>>>>> dd4db145c2bb952ecdc483dcac423d96bb4fd0a4
